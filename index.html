@@ -1,230 +1,203 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Iced chat</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #121212; 
-    color: #eee;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #neve {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; 
-  z-index: 0;
-}
-
-  .chat-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 30px;
-    height: 100vh;
-  }
-
-  header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #82aaff;
-  }
-
-  #usuarios_online {
-  background-color: #0000;    
-  color: #75b2e4;                 
-  padding: 6px 20px;
-  border-radius: 15px;          
-  font-weight: 700;
-  font-size: 1.3rem;
-  min-width: 50px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(156, 159, 180, 0.7);
-  user-select: none;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  cursor: default;
-
-  
-}
-
-#usuarios_online:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(95, 108, 216, 0.9);
-}
-
-  /* Lista de mensagens */
-  #lista_mensagens {
-    flex-grow: 1;
-    background: #1f1f1f;
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    overflow-y: auto;
-    font-size: 1rem;
-    line-height: 1.3;
-  }
-
-  #lista_mensagens li {
-    background: #2c2c2c;
-    padding: 8px 14px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    user-select: none;
-    transition: background-color 0.3s ease;
-  }
-  #lista_mensagens li:hover {
-    background-color: #3a3a3a;
-  }
-
- 
-  .inputs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 15px;
-  }
-  input[type="text"] {
-    flex: 1;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    background: #2c2c2c;
-    color: #eee;
-    font-size: 1rem;
-    outline: none;
-    transition: box-shadow 0.3s ease;
-  }
-
-  input[type="text"]:focus {
-    box-shadow: 0 0 8px 2px #82aaff;
-    background: #3a3a3a;
-  }
-
-  /* Botão enviar */
-  #btn_enviar {
-    padding: 12px 20px;
-    background: #82aaff;
-    color: #eee;
-    font-weight: 700;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  #btn_enviar:hover {
-    background: #5f85d9;
-  }
-
-
-  .botoes-controle {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .botoes-controle button {
-    flex: 1;
-    padding: 10px 8px;
-    background: #333;
-    color: #eee;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    user-select: none;
-  }
-
-  .botoes-controle button:hover {
-    background: #555;
-  }
-
-
-  .side-image {
-    width: 280px;
-    background: transparent;
-    display: fle;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 20px;
-    user-select: none;
-  }
-
-  .side-image img {
-    max-height: 70vh;
-    object-fit: contain;
-    pointer-events: none;
-  }
-
-
-  #lista_mensagens::-webkit-scrollbar {
-    width: 8px;
-  }
-  #lista_mensagens::-webkit-scrollbar-track {
-    background: #1f1f1f;
-  }
-  #lista_mensagens::-webkit-scrollbar-thumb {
-    background: #82aaff;
-    border-radius: 10px;
-  }
-
-  @media(max-width: 720px) {
-    body, html {
-      flex-direction: column;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iced Chat</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    
+    * {
+        box-sizing: border-box;
     }
-    .side-image {
+
+    canvas {
+      display: block;
+      vertical-align: bottom;
+    }
+
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-height: 180px;
-      padding: 10px 0 0 0;
+      height: 100%;
+      z-index: 0;
+      background-color: #0000;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212; 
+      color: #eee;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      align-items: center;
       justify-content: center;
     }
+
     .chat-container {
-      height: auto;
-      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 30px;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
     }
-  }
 
-  #contador_caracteres {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    color: rgb(112, 113, 212);
-  }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #366ce0;
+    }
 
-</style>
+    #usuarios_online {
+      background-color: #aa141400;    
+      color: #192ddf;                 
+      padding: 6px 20px;
+      border-radius: 15px;          
+      font-weight: 700;
+      font-size: 1.3rem;
+      min-width: 50px;
+      text-align: center;
+      box-shadow: 0 0px 30px rgba(156, 159, 180, 0.7);
+      user-select: none;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    #lista_mensagens {
+      flex-grow: 1;
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      overflow-y: auto;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    #lista_mensagens li {
+      background: #2c2c2c;
+      padding: 8px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #lista_mensagens li:hover {
+      background-color: #3a3a3a;
+    }
+
+    .inputs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: #2c2c2c;
+      color: #eee;
+      font-size: 1rem;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 8px 2px #82aaff;
+      background: #3a3a3a;
+    }
+
+    #btn_enviar {
+      padding: 12px 20px;
+      background: #366ce0;
+      color: #eee;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    #btn_enviar:hover {
+      background: #5f85d9;
+    }
+
+    .botoes-controle {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .botoes-controle button {
+      flex: 1;
+      padding: 10px 8px;
+      background: #333;
+      color: #eee;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    .botoes-controle button:hover {
+      background: #555;
+    }
+
+    #lista_mensagens::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #lista_mensagens::-webkit-scrollbar-track {
+      background: #1f1f1f;
+    }
+
+    #lista_mensagens::-webkit-scrollbar-thumb {
+      background: #82aaff;
+      border-radius: 10px;
+    }
+
+    @media(max-width: 720px) {
+      body, html {
+        flex-direction: column;
+      }
+      .chat-container {
+        height: auto;
+        padding: 15px;
+      }
+    }
+
+    #contador_caracteres {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgb(81, 132, 240);
+    }
+  </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+
   <div class="chat-container">
-
-    <canvas id="neve"></canvas>
-
     <header>
-      <span>❄️ Iced Chat ❄️</span>  
+      <span>❄️Iced Chat❄️ </span>  
       <span id="usuarios_online">0 </span> 
     </header>
 
@@ -244,12 +217,13 @@
     </div>
   </div>
 
-  <div class="side-image">
-    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f42f52f9-bf3b-49f4-9788-4cd9c4f3a166/dgoeq77-f36f45da-4aab-4a8d-93d0-db6d38eff2bf.png/v1/fill/w_1280,h_2015/frieren_sousou_no_frieren_render_png_by_rspixe_dgoeq77-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjAxNSIsInBhdGgiOiJcL2ZcL2Y0MmY1MmY5LWJmM2ItNDlmNC05Nzg4LTRjZDljNGYzYTE2NlwvZGdvZXE3Ny1mMzZmNDVkYS00YWFiLTRhOGQtOTNkMC1kYjZkMzhlZmYyYmYucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.n9Kp2Ymm2-zxEVnHWhm90idKCwaSLQvKbhRNlSrjLfg" />
-  </div>
+  <!--Bibliotecas -->
+  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
 
-<script>
-  const mensagens = [];
+    <script>
+
+     const mensagens = [];
 
   function atualizar_tela() {
     const lista = document.getElementById('lista_mensagens');
@@ -353,62 +327,134 @@
     contador.style.color = 'blue';
   }
 });
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 400,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: { value: "#fff" },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000"
+          },
+          polygon: {
+            nb_sides: 5
+          },
+          image: {
+            src: "img/github.svg",
+            width: 100,
+            height: 100
+          }
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 10,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: false,
+          distance: 500,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 2
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: "bottom",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "bubble"
+          },
+          onclick: {
+            enable: true,
+            mode: "repulse"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 400,
+            line_linked: {
+              opacity: 0.5
+            }
+          },
+          bubble: {
+            distance: 400,
+            size: 4,
+            duration: 0.3,
+            opacity: 1,
+            speed: 3
+          },
+          repulse: {
+            distance: 200,
+            duration: 0.4
+          },
+          push: {
+            particles_nb: 4
+          },
+          remove: {
+            particles_nb: 2
+          }
+        }
+      },
+      retina_detect: true
+    });
 
-  const canvas = document.getElementById("neve");
-  const ctx = canvas.getContext("2d");
-  let largura, altura;
+    // Stats.js setup
+    var count_particles, stats, update;
+    stats = new Stats();
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
 
-  function redimensionarCanvas() {
-    largura = canvas.width = window.innerWidth;
-    altura = canvas.height = window.innerHeight;
-  }
-
-  window.addEventListener("resize", redimensionarCanvas);
-  redimensionarCanvas();
-
-  const flocos = Array.from({ length: 100 }).map(() => ({
-    x: Math.random() * largura,
-    y: Math.random() * altura,
-    r: Math.random() * 3 + 1,
-    d: Math.random() * 1 + 0.5
-  }));
-
-  function desenharNeve() {
-    ctx.clearRect(0, 0, largura, altura);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-    ctx.beginPath();
-    for (let i = 0; i < flocos.length; i++) {
-      const f = flocos[i];
-      ctx.moveTo(f.x, f.y);
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-    }
-    ctx.fill();
-    atualizar();
-  }
-
-  let ângulo = 0;
-
-  function atualizar() {
-    ângulo += 0.1;
-    for (let i = 0; i < flocos.length; i++) {
-      const f = flocos[i];
-      f.y += Math.cos(f.d) + f.r / 2;
-      f.x += Math.sin(ângulo) * 0.1;
-
-      if (f.y > altura) {
-        f.y = 0;
-        f.x = Math.random() * largura;
+    count_particles = document.querySelector('.js-count-particles');
+    update = function () {
+      stats.begin();
+      stats.end();
+      if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+        count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
       }
-    }
-  }
-
-  function animar() {
-    desenharNeve();
-    requestAnimationFrame(animar);
-  }
-
-  animar();
-
-</script>
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  </script>
 </body>
 </html>
